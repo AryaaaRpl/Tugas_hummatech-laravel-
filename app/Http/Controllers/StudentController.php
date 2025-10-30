@@ -60,6 +60,6 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
         $student->update($validated);
 
-        return redirect()->back()->with('success', 'Data siswa berhasil diupdate!');
+        return redirect()->back()->with('success', 'Data siswa berhasil diupdate! ', $id);
     }
 }
