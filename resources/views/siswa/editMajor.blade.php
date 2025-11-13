@@ -195,29 +195,9 @@
             <p><strong>Terakhir diperbarui:</strong> {{ $student->updated_at ?? 'Belum pernah diperbarui' }}</p>
         </div>
 
-        <form action="{{ route('siswa.massUpdate', $student->id) }}" method="POST">
+        <form action="{{ route('major.massUpdate', $student->id) }}" method="POST">
             @csrf
             @method('PUT')
-
-            <div class="form-group">
-                <label for="nama">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" value="{{ $student->nama }}" placeholder="Masukkan nama lengkap siswa" required>
-            </div>
-
-            <div class="form-group">
-                <label for="kelas">Kelas</label>
-                <input type="text" id="kelas" name="kelas" value="{{ $student->kelas }}" placeholder="Contoh: X, XI, XII" required>
-            </div>
-
-            <div class="form-group">
-                <label for="jurusan">Jurusan</label>
-                <input type="text" id="jurusan" name="jurusan" value="{{ $student->jurusan }}" placeholder="Contoh: IPA, IPS, Teknik" required>
-            </div>
-
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject_name" placeholder="Matematika" required>
-            </div>
             <div class="form-group">
                 <label for="major">Major Name</label>
                 <input type="text" id="major" name="major_name" placeholder="Matematika" required>
