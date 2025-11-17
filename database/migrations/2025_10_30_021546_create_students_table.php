@@ -17,9 +17,9 @@ return new class extends Migration
             $table->integer('phone')->unique();
             $table->string('email')->unique();
             $table->enum('kelas', ['RPL', 'TKJ', 'MP', 'AK', 'BD', 'Logistik', 'PH', 'DKV', 'Pariwisata']);
-            $table->enum('gender', ['Laki-laki', 'Perempuan', 'other']);
+            $table->enum('gender', ['Laki-laki', 'Perempuan', 'Rahasia']);
             $table->integer('nisn')->unique();
-            $table->increments('major_id');
+            $table->integer('major_id')->unsigned();
             $table->timestamps();
         });
     }

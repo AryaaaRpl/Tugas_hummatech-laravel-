@@ -15,25 +15,24 @@ class StudentController extends Controller
     }
 
       // Simpan data siswa baru (Mass Assignment)
-    public function massAssignment(Request $request, $id)
-    {
-        // Validasi input
-             $validated = $request->validate([
-            'nama'       => 'required|string|min:6|max:255',
-            'phone'      => 'required|integer|unique:students,phone,' . $id,
-            'email'      => 'required|email|unique:students,email,' . $id,
-            'kelas'      => 'required|in:RPL,TKJ,MP,AK,BD,Logistik,PH,DKV,Pariwisata',
-            'major_name' => 'required|string|max:255',
-            'gender'     => 'required|in:Laki-laki,Perempuan,other',
-            'nisn'       => 'required|numeric|unique:students,nisn,' . $id,
-            'major_id'   => 'required|numeric',
-        ]);
+  public function massAssignment(Request $request)
+{
+    $validated = $request->validate([
+        'nama'       => 'required|string|min:6|max:255',
+        'phone' => 'required|numeric|unique:students,phone',
+        'email'      => 'required|email|unique:students,email',
+        'kelas'      => 'required|in:RPL,TKJ,MP,AK,BD,Logistik,PH,DKV,Pariwisata',
+        'gender'     => 'required|in:Laki-laki,Perempuan,Rahasia',
+        'nisn'  => 'required|numeric|unique:students,nisn',
+        'major_id'   => 'required|numeric',
+    ]);
 
-        // Simpan data ke database menggunakan Mass Assignment
-        Student::create($validated);
+    Student::create($validated);
 
-        return redirect()->back()->with('success', 'Data siswa berhasil disimpan!');
-    }
+    return redirect()->back()->with('success', 'Data siswa berhasil disimpan!');
+    dd($validated);
+
+}
 
     // Tampilkan form edit berdasarkan ID
 
@@ -51,16 +50,21 @@ class StudentController extends Controller
         // Validasi input
         $validated = $request->validate([
             'nama' => 'required|string|min:5|max:255',
-            'kelas' => 'required|string|min:1|max:5',
-            'subject_name' => 'required|string|min:6|max:255',
-            'major_name' => 'required|string|min:7|max:255'
+            'phone'      => 'required|numeric|unique:students,phone,' . $id,
+            'email'      => 'required|email|unique:students,email,' . $id,
+            'kelas'      => 'required|in:RPL,TKJ,MP,AK,BD,Logistik,PH,DKV,Pariwisata',
+            'gender'     => 'required|in:Laki-laki,Perempuan,Rahasia',
+            'nisn'       => 'required|numeric|unique:students,nisn,' . $id,
+            'major_id'   => 'required|numeric',
+
         ], [
             'nama.required' => 'Nama wajib diisi',
             'nama.min' => 'Nama minimal 5 karakter',
             'kelas.required' => 'Kelas wajib diisi',
-            'jurusan.min' => 'Jurusan minimal 3 karakter',
-            'subject_name.min' => 'Subject Minimal 6 Karakter',
-            'major_name.min' => 'Major Name Minimal 7 karakter'
+            'gender.required' => 'gender wajib ada kalo gaada ga manusia',
+            'phone.required' => 'nomor wajib diisi',
+            'email.required' => 'email wajib diisi',
+            'nisn.required' => 'nisn wajib diisi',
         ]);
 
         // Cari data lama dan update

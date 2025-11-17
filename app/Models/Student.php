@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected  $table = "students";
+    use HasFactory;
 
     protected $fillable = [
         'nama',
@@ -17,9 +18,4 @@ class Student extends Model
         'nisn',
         'major_id',
     ];
-
-     public function major()
-    {
-        return $this->belongsTo(Major::class, 'major_id', 'major_id');
-    }
 }

@@ -131,6 +131,15 @@
             </div>
         @endif
 
+        @if ($errors->any())
+    <div style="background:#fee;color:#c00;padding:10px;margin-bottom:16px;border-radius:6px;">
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
+
+
         <form action="{{ route('siswa.massAssignment') }}" method="POST">
             @csrf
 
@@ -168,11 +177,6 @@
                 </select>
             </div>
 
-            <!-- Major Name -->
-            <div class="form-group">
-                <label for="major_name">Nama Major</label>
-                <input type="text" id="major_name" name="major_name" placeholder="Contoh: Rekayasa Perangkat Lunak" required>
-            </div>
 
             <!-- Gender -->
             <div class="form-group">
@@ -181,7 +185,7 @@
                     <option value="">-- Pilih Gender --</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
-                    <option value="other">Other</option>
+                    <option value="Rahasia">Rahasia</option>
                 </select>
             </div>
 
