@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('kelas');
-            $table->string('jurusan');
-            $table->string('subject_name');
-            $table->string('major_name');
+            $table->integer('phone')->unique();
+            $table->string('email')->unique();
+            $table->enum('kelas', ['RPL', 'TKJ', 'MP', 'AK', 'BD', 'Logistik', 'PH', 'DKV', 'Pariwisata']);
+            $table->enum('gender', ['Laki-laki', 'Perempuan', 'other']);
+            $table->integer('nisn')->unique();
+            $table->increments('major_id');
             $table->timestamps();
         });
     }

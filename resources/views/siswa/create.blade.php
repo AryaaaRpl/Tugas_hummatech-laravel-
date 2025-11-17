@@ -12,7 +12,8 @@
             --text: #374151;
             --text-light: #6b7280;
             --white: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                      0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 8px;
         }
 
@@ -70,7 +71,10 @@
             font-size: 14px;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select {
             width: 100%;
             padding: 12px 16px;
             border: 1px solid #d1d5db;
@@ -79,7 +83,8 @@
             transition: all 0.3s ease;
         }
 
-        input[type="text"]:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
@@ -111,12 +116,6 @@
             border-left: 4px solid var(--success);
             font-size: 14px;
         }
-
-        @media (max-width: 576px) {
-            .form-container {
-                padding: 30px 20px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -134,27 +133,68 @@
 
         <form action="{{ route('siswa.massAssignment') }}" method="POST">
             @csrf
+
+            <!-- Nama -->
             <div class="form-group">
                 <label for="nama">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap siswa" required>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
             </div>
 
+            <!-- Phone -->
             <div class="form-group">
-                <label for="kelas">Kelas</label>
-                <input type="text" id="kelas" name="kelas" placeholder="Contoh: X, XI, XII" required>
+                <label for="phone">Nomor Telepon</label>
+                <input type="number" id="phone" name="phone" placeholder="08xxxx" required>
             </div>
 
+            <!-- Email -->
             <div class="form-group">
-                <label for="jurusan">Jurusan</label>
-                <input type="text" id="jurusan" name="jurusan" placeholder="Contoh: IPA, IPS, Teknik" required>
+                <label for="email">Email Siswa</label>
+                <input type="email" id="email" name="email" placeholder="nama@gmail.com" required>
             </div>
+
+            <!-- Kelas -->
             <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject_name" placeholder="Matematika" required>
+                <label for="kelas">Kelas (Enum)</label>
+                <select name="kelas" id="kelas" required>
+                    <option value="">-- Pilih Kelas --</option>
+                    <option value="RPL">RPL</option>
+                    <option value="TKJ">TKJ</option>
+                    <option value="MP">MP</option>
+                    <option value="AK">AK</option>
+                    <option value="BD">BD</option>
+                    <option value="Logistik">Logistik</option>
+                    <option value="PH">PH</option>
+                    <option value="DKV">DKV</option>
+                </select>
             </div>
+
+            <!-- Major Name -->
             <div class="form-group">
-                <label for="major_name">Major Name</label>
-                <input type="text" id="major" name="major_name" placeholder="Major Name" required>
+                <label for="major_name">Nama Major</label>
+                <input type="text" id="major_name" name="major_name" placeholder="Contoh: Rekayasa Perangkat Lunak" required>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Jenis Kelamin</label>
+                <select name="gender" id="gender" required>
+                    <option value="">-- Pilih Gender --</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- NISN -->
+            <div class="form-group">
+                <label for="nisn">NISN</label>
+                <input type="number" id="nisn" name="nisn" placeholder="Masukkan NISN" required>
+            </div>
+
+            <!-- Major ID -->
+            <div class="form-group">
+                <label for="major_id">Major ID</label>
+                <input type="number" id="major_id" name="major_id" placeholder="Ex: 1" required>
             </div>
 
             <button type="submit" class="btn-submit">Simpan Data</button>
