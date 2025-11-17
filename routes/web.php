@@ -8,6 +8,9 @@ Route::get('/students/create', [StudentController::class, 'create'])->name('sisw
 Route::post('/students', [StudentController::class, 'massAssignment'])->name('siswa.massAssignment');
 
 
+Route::get('/students/index', [StudentController::class, 'index'])->name('siswa.index');
+
+
 // menampilkan form edit (GET)
 Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('siswa.edit');
 
@@ -15,9 +18,8 @@ Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('sis
 Route::put('/students/{id}', [StudentController::class, 'massUpdate'])->name('siswa.massUpdate');
 
 
-Route::get('/student/delete', [StudentController::class, 'delete']);
-Route::get('/student/destroy', [StudentController::class, 'destroy']);
-Route::get('/student/massdelete', [StudentController::class, 'massdelete']);
+Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('siswa.destroy');
+Route::put('/student/massdelete', [StudentController::class, 'massdelete']);
 
 Route::get('/students/major/create', [MajorController::class, 'create'])->name('major.create');
 Route::post('/students/major', [MajorController::class, 'massAssignment'])->name('major.massAssignment');

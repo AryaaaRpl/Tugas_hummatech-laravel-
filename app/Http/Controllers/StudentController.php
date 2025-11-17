@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    public function index()
+{
+    $students = Student::all();
+
+    return view('siswa.indexStudent', compact('students'));
+}
     // Tampilkan form tambah siswa
     public function create()
     {
@@ -25,12 +32,13 @@ class StudentController extends Controller
         'gender'     => 'required|in:Laki-laki,Perempuan,Rahasia',
         'nisn'  => 'required|numeric|unique:students,nisn',
         'major_id'   => 'required|numeric',
-    ]);
 
+    ]);
+    // dd($validated);
     Student::create($validated);
 
-    return redirect()->back()->with('success', 'Data siswa berhasil disimpan!');
-    dd($validated);
+    return redirect()->route('siswa.index');
+
 
 }
 
@@ -71,22 +79,18 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
         $student->update($validated);
 
-        return redirect()->back()->with('success', 'Data siswa berhasil diupdate! ', $id);
+        return redirect()->route('siswa.index');
     }
 
-    public function Delete() {
-        $student = Student::find(1);
+
+    public function destroy(string $id) {
+       $student = Student::findOrFail($id);
         $student->delete();
-        return "success boss";
-    }
-
-    public function destroy() {
-        $student = Student::destroy([2, 3]);
-        return $student;
+        return redirect()->route('siswa.index');
     }
 
     public function deleteByMajor($major_name) {
-        Student::where('subject_name', $major_name)->delete();
+        Student::where('id')->delete();
         return redirect()->back()->with('success', 'Data dengan major tersebut berhasil dihapus!');
     }
 }
